@@ -11,6 +11,8 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+
+
 export default function Home() {
   return (
     <div className="home">
@@ -48,7 +50,9 @@ export default function Home() {
               <h3>Upload your floor plan</h3>
               <p>**Supports only JPG, PNG formats upto 10MB</p>
             </div>
-            <Upload />
+            <Upload onComplete={(base64Data) => {
+              console.log("upload done",base64Data);
+            }} />
           </div>
         </div>
       </section>
