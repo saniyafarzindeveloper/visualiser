@@ -71,6 +71,7 @@ export const createProject = async ({
 
       try {
         //if things go right - call the puter worker
+        return payload;
       } catch (error) {
         console.log('Failed to save project', error);
         return null;
