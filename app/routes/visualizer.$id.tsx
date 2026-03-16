@@ -1,5 +1,5 @@
 import { generate3DView } from "lib/ai.action";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router"
 
 const VisualizerId = () => {
@@ -29,6 +29,14 @@ const VisualizerId = () => {
       setIsProcessing(false);
     }
   } 
+
+  useEffect(() => {
+    if(!initialImage || hasInitiallyGenerated.current) return;
+    if(initialRender){
+      setCurrentImage(initialRender);
+      hasInitiallyGenerated
+    }
+  }, [initialImage, initialRender]);
 
   return (
     <section>
