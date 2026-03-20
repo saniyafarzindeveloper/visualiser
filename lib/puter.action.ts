@@ -4,6 +4,7 @@ import {
   uploadImageToHosting,
 } from "./puter.hosting";
 import { isHostedUrl } from "./utils";
+import { PUTER_WORKER_URL } from "./constants";
 
 //authentication function
 export const signIn = async () => await puter.auth.signIn();
@@ -77,3 +78,16 @@ export const createProject = async ({
         return null;
       }
 };
+
+export const getProjects = async() => {
+  if(!PUTER_WORKER_URL){
+    console.log('Missing Vite puter worker URL');
+    return [];
+  }
+
+  try {
+    
+  } catch (error) {
+    console.log('Error occured while fetching projects', error);
+  }
+}
