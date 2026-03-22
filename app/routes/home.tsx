@@ -1,16 +1,16 @@
 import Navbar from "components/Navbar";
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/home"; 
 import { ArrowRight, ArrowUpRight, Clock, Layers } from "lucide-react";
 import Button from "components/ui/Button";
 import Upload from "components/Upload";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createProject } from "lib/puter.action";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "3D Visualizer" },
+    { name: "description", content: "Welcome!" },
   ];
 }
 
@@ -18,8 +18,14 @@ export default function Home() {
   const navigate = useNavigate();
   //fetching created projects to display them on the homepage
   const [projects, setProjects] = useState<DesignItem[]>([]);
+  const isCreatingProjectRef = useRef(false);
+
   const handleUpload = async (base64Image: string) => {
-    const newId = Date.now().toString();
+    if(isCreatingProjectRef.current) return false;
+    isCreatingProjectRef.current = true;
+
+    try {
+      const newId = Date.now().toString();
     //creating the name project by naming it
     const name = `Residence ${newId}`;
     const newItem = {
@@ -45,6 +51,11 @@ export default function Home() {
       },
     });
     return true;
+    } finally  {
+      isCreatingProjectRef.current = false;
+    }
+
+    
   };
   return (
     <div className="home">
